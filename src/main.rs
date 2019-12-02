@@ -19,15 +19,15 @@ fn main() {
         other => {
             eprintln!("Unknown day {}", other);
             std::process::exit(1)
-        },
+        }
     };
 
     match out {
-        Ok(()) => {},
+        Ok(()) => {}
         Err(err) => {
             eprintln!("{}", err);
             std::process::exit(1)
-        },
+        }
     }
 }
 
