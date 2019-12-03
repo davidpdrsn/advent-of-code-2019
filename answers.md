@@ -7,3 +7,8 @@ Part 2: 4836845
 
 Part 1: 3790689
 Part 2: 6533
+
+# Day 3
+
+Part 1: 386
+Part 2: ?

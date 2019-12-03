@@ -5,6 +5,7 @@ type Result<T, E = Box<dyn std::error::Error>> = std::result::Result<T, E>;
 
 mod day_1;
 mod day_2;
+mod day_3;
 
 #[derive(Debug, StructOpt)]
 #[structopt(name = "aoc")]
@@ -19,6 +20,7 @@ fn main() {
     let out = match opt.day {
         1 => day_1::main(),
         2 => day_2::main(),
+        3 => day_3::main(),
         other => {
             eprintln!("Unknown day {}", other);
             std::process::exit(1)
