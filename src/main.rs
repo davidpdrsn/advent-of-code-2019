@@ -1,3 +1,4 @@
+use extend::ext;
 use std::convert::TryFrom;
 use structopt::StructOpt;
 
@@ -6,6 +7,7 @@ pub use anyhow::{Error, Result};
 mod day_1;
 mod day_2;
 mod day_3;
+mod day_4;
 
 #[derive(Debug, StructOpt)]
 #[structopt(name = "aoc")]
@@ -40,6 +42,9 @@ fn try_main() -> Result<()> {
         (3, None) => day_3::main(Part::One),
         (3, Some(part)) => day_3::main(Part::try_from(part)?),
 
+        (4, None) | (4, Some(1)) => day_4::main(Part::One),
+        (4, Some(2)) => day_4::main(Part::Two),
+
         (day, None) => Err(Error::msg(format!("Unknown day {}", day))),
 
         (day, Some(part)) => Err(Error::msg(format!("Unknown day {}, part {}", day, part))),
@@ -69,4 +74,16 @@ impl TryFrom<usize> for Part {
 
 fn read_file(path: &str) -> Result<String> {
     std::fs::read_to_string(path).map_err(From::from)
+}
+
+#[ext(name = BoolThenExt)]
+impl bool {
+    #[inline]
+    fn then<T>(self, t: T) -> Option<T> {
+        if self {
+            Some(t)
+        } else {
+            None
+        }
+    }
 }

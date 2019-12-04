@@ -12,3 +12,8 @@ Part 2: 6533
 
 Part 1: 386
 Part 2: 6484
+
+# Day 4
+
+Part 1: 594
+Part 2: ?
