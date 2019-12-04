@@ -1,20 +1,14 @@
-use super::{read_file, Error, Result};
+use super::{read_file, Error, Part, Result};
 use std::collections::HashSet;
 
 mod part_1;
 mod part_2;
 
-// TODO: Add Part::{One, Two}
-// so you can do `aoc 2 1` for "day 2, part 1"
-
-// pub fn main() -> Result<()> {
-//     // part_1::main()
-//     // part_2::main()
-// }
-
-pub fn main() -> Result<()> {
-    let input = read_file("input/day_3")?;
-    unimplemented!()
+pub fn main(part: Part) -> Result<()> {
+    match part {
+        Part::One => part_1::main(),
+        Part::Two => part_2::main(),
+    }
 }
 
 fn parse_moves(line: &str) -> Result<Vec<Move>> {
@@ -35,7 +29,7 @@ fn parse_move(m: &str) -> Result<Move> {
         &"D" => Move::Down(maginutde),
         &"R" => Move::Right(maginutde),
         &"L" => Move::Left(maginutde),
-        dir => return Err(Error::boxed(format!("Invalid movement direction {}", dir))),
+        dir => return Err(Error::msg(format!("Invalid movement direction {}", dir))),
     };
 
     Ok(move_)
@@ -50,32 +44,46 @@ enum Move {
 }
 
 impl Move {
-    fn into_single_moves(&self) -> Vec<Self> {
+    fn into_single_moves(self) -> Vec<Self> {
         let range = |n| (1..=n).map(|_| 1);
 
         match self {
-            Move::Up(maginutde) => range(*maginutde).map(Move::Up).collect(),
-            Move::Down(maginutde) => range(*maginutde).map(Move::Down).collect(),
-            Move::Left(maginutde) => range(*maginutde).map(Move::Left).collect(),
-            Move::Right(maginutde) => range(*maginutde).map(Move::Right).collect(),
+            Move::Up(maginutde) => range(maginutde).map(Move::Up).collect(),
+            Move::Down(maginutde) => range(maginutde).map(Move::Down).collect(),
+            Move::Left(maginutde) => range(maginutde).map(Move::Left).collect(),
+            Move::Right(maginutde) => range(maginutde).map(Move::Right).collect(),
         }
     }
 }
 
 #[derive(Debug)]
 struct WirePath {
-    current_pos: Pos,
+    current_position: Pos,
+    previous_positions: Vec<Pos>,
 }
 
 impl WirePath {
     fn new() -> Self {
         Self {
-            current_pos: Pos { x: 0, y: 0 },
+            current_position: Pos { x: 0, y: 0 },
+            previous_positions: Vec::new(),
         }
     }
 
+    fn current_position(&self) -> Pos {
+        self.current_position
+    }
+
+    fn all_positions(&self) -> Vec<Pos> {
+        let mut positions = self.previous_positions.clone();
+        positions.push(self.current_position());
+        positions
+    }
+
     fn apply(&mut self, move_: Move) {
-        let mut next_pos = self.current_pos;
+        self.previous_positions.push(self.current_position());
+
+        let mut next_pos = self.current_position;
 
         match move_ {
             Move::Up(maginutde) => next_pos.y += maginutde,
@@ -84,7 +92,7 @@ impl WirePath {
             Move::Left(maginutde) => next_pos.x -= maginutde,
         }
 
-        self.current_pos = next_pos;
+        self.current_position = next_pos;
     }
 }
 

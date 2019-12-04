@@ -22,7 +22,7 @@ pub fn main() -> Result<()> {
             19_690_720 == output
         });
 
-    let (noun, verb) = result.ok_or_else(|| Error::boxed("no match"))?;
+    let (noun, verb) = result.ok_or_else(|| Error::msg("no match"))?;
     println!("{}", 100 * noun + verb);
 
     Ok(())
@@ -88,7 +88,7 @@ impl IntMachine {
             99 => Ok(OpCode::Halt),
             1 => Ok(OpCode::Add),
             2 => Ok(OpCode::Mul),
-            code => Err(Error::boxed(format!("Invalid op code {}", code))),
+            code => Err(Error::msg(format!("Invalid op code {}", code))),
         }
     }
 }
