@@ -40,10 +40,10 @@ pub fn main() -> Result<()> {
         .par_iter()
         .map(|intersection| {
             let sum = wire_paths
-                .iter()
+                .par_iter()
                 .map(move |wire_path| distance(*intersection, &wire_path.all_positions()))
                 .collect::<Result<Vec<usize>>>()?
-                .into_iter()
+                .into_par_iter()
                 .sum::<usize>();
 
             Ok(sum)
