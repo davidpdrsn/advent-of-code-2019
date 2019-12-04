@@ -1,3 +1,12 @@
+#![allow(
+    unused_parens,
+    unstable_name_collisions,
+    unused_imports,
+    unused_variables,
+    dead_code,
+    clippy::unreadable_literal
+)]
+
 use extend::ext;
 use std::convert::TryFrom;
 use structopt::StructOpt;
