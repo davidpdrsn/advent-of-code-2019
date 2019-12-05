@@ -13,11 +13,6 @@ use structopt::StructOpt;
 
 pub use anyhow::{Error, Result};
 
-mod day_1;
-mod day_2;
-mod day_3;
-mod day_4;
-
 #[derive(Debug, StructOpt)]
 #[structopt(name = "aoc")]
 struct Opt {
@@ -38,27 +33,32 @@ fn main() {
     }
 }
 
-fn try_main() -> Result<()> {
-    let opt = Opt::from_args();
+macro_rules! define_parts {
+    ( $(($mod:ident, $n:expr),)* ) => {
+        define_parts!( $( ($mod, $n) ),* )
+    };
 
-    match (opt.day, opt.part) {
-        (1, None) => day_1::main(),
-        (1, Some(_)) => unimplemented!(),
+    ( $(($mod:ident, $n:expr)),* ) => {
+        $( mod $mod; )*
 
-        (2, None) => day_2::main(),
-        (2, Some(_)) => unimplemented!(),
+        fn try_main() -> Result<()> {
+            let opt = Opt::from_args();
 
-        (3, None) => day_3::main(Part::One),
-        (3, Some(part)) => day_3::main(Part::try_from(part)?),
+            match (opt.day, opt.part) {
+                $(
+                    ($n, None) => $mod::main(Part::One),
+                    ($n, Some(part)) => $mod::main(Part::try_from(part)?),
+                )*
 
-        (4, None) | (4, Some(1)) => day_4::main(Part::One),
-        (4, Some(2)) => day_4::main(Part::Two),
+                (day, None) => Err(Error::msg(format!("Unknown day {}", day))),
 
-        (day, None) => Err(Error::msg(format!("Unknown day {}", day))),
-
-        (day, Some(part)) => Err(Error::msg(format!("Unknown day {}, part {}", day, part))),
-    }
+                (day, Some(part)) => Err(Error::msg(format!("Unknown day {}, part {}", day, part))),
+            }
+        }
+    };
 }
+
+define_parts!((day_1, 1), (day_2, 2), (day_3, 3), (day_4, 4));
 
 #[derive(Debug, Clone, Copy)]
 pub enum Part {

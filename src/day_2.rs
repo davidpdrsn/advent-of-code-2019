@@ -1,8 +1,13 @@
-use super::{read_file, Error, Result};
+use super::{read_file, Part, Error, Result};
 use rayon::prelude::*;
 use std::fmt;
 
-pub fn main() -> Result<()> {
+pub fn main(part: Part) -> Result<()> {
+    match part {
+        Part::One => {}
+        Part::Two => return Err(Error::msg("Day 1, part 2 is lost")),
+    }
+
     let input = read_file("input/day_2")?;
     let mem = parse_input_to_mem(&input)?;
 
