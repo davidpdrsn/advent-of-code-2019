@@ -58,7 +58,7 @@ macro_rules! define_parts {
     };
 }
 
-define_parts!((day_1, 1), (day_2, 2), (day_3, 3), (day_4, 4));
+define_parts!((day_1, 1), (day_2, 2), (day_3, 3), (day_4, 4), (day_5, 5));
 
 #[derive(Debug, Clone, Copy)]
 pub enum Part {
