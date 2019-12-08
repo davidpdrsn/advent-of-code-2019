@@ -1,0 +1,14 @@
+```
+inputs     3,225,1,225,6,6,1100
+positions: 0 1   2 3   4 5 6
+```
+
+3,225
+read instruction
+input must be 1
+store at 1 at position 225
+
+1,225,6,6,1100:
+add instruction, without modes so all args are position mode
+read from position 225, where we just wrote 1
+read from position 6, which is 1100

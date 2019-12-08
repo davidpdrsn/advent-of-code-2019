@@ -17,3 +17,13 @@ Part 2: 6484
 
 Part 1: 594
 Part 2: 364
+
+# Day 5
+
+Part 1: ?
+Part 2: ?
+
+# Day 6
+
+Part 1: 268504
+Part 2: 409
