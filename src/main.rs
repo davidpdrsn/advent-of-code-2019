@@ -11,7 +11,7 @@ use extend::ext;
 use std::convert::TryFrom;
 use structopt::StructOpt;
 
-pub use anyhow::{Error, Result};
+pub use anyhow::{Error, Result, anyhow};
 
 #[derive(Debug, StructOpt)]
 #[structopt(name = "aoc")]
@@ -64,7 +64,8 @@ define_parts!(
     (day_3, 3),
     (day_4, 4),
     (day_5, 5),
-    (day_6, 6)
+    (day_6, 6),
+    (day_8, 8)
 );
 
 #[derive(Debug, Clone, Copy)]

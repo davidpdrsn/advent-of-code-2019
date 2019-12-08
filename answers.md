@@ -27,3 +27,13 @@ Part 2: ?
 
 Part 1: 268504
 Part 2: 409
+
+# Day 7
+
+Part 1: ?
+Part 2: ?
+
+# Day 8
+
+Part 1: 1215
+Part 2: LHCPH
